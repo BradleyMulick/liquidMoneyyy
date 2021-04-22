@@ -15,9 +15,9 @@ const SignupScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.logoHolder}>
-                {/* <Image source={require('../assets/liquidMoney.png')} style={{ width: '100%', height: '100%' }} /> */}
-            </View>
 
+                <Image source={require('../assets/liquidLogo.png')} style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
+            </View>
             <FormInput
                 labelValue={fullName}
                 onChangeText={(userName) => setFullName(userName)}
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ebebeb'
     },
     logoHolder: {
-        width: 300,
-        height: 150
+        height: '25%',
+        width: '50%',
     },
 
     forgotButton: {

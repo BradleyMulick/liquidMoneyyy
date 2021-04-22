@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Modal, Pressable, useContext } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Modal, Pressable, useContext, Image } from 'react-native'
 import Ion from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firestore from '@react-native-firebase/firestore'
@@ -7,7 +7,7 @@ import { AuthContext } from '../navigation/AuthProvider'
 
 
 
-const ModalSurvey2 = ({ modalSurvey2, setModalSurvey2, winnings, user, totalMoney, setTotalMoney, setWinnings, setModalWin }) => {
+const ModalSurvey2 = ({ modalSurvey2, setModalSurvey2, modalWinSur, setModalWinSur, winnings, user, totalMoney, setTotalMoney, setWinnings }) => {
 
 
 
@@ -25,7 +25,7 @@ const ModalSurvey2 = ({ modalSurvey2, setModalSurvey2, winnings, user, totalMone
                 setModalSurvey2(false)
                 setTotalMoney(totalMoney + 1.0)
                 setWinnings(1.00)
-                setModalWin2(true)
+                setModalWinSur(!modalWinSur)
             });
     }
 
@@ -42,7 +42,7 @@ const ModalSurvey2 = ({ modalSurvey2, setModalSurvey2, winnings, user, totalMone
                 setModalSurvey2(false)
                 setTotalMoney(totalMoney + 1.0)
                 setWinnings(1.00)
-                setModalWin(true)
+                setModalWinSur(true)
             });
     }
 
@@ -52,11 +52,14 @@ const ModalSurvey2 = ({ modalSurvey2, setModalSurvey2, winnings, user, totalMone
             animationType="slide"
             transparent={true}
             visible={modalSurvey2}
-
         >
             <View style={styles.modalView2}>
-                {/* <Image source={require('../assets/liquidMon.png')} style={{ width: '65%', height: '35%', resizeMode: 'contain' }} /> */}
-                <Text style={styles.congrat}>Survey2!</Text>
+
+                <View style={styles.logoHolder}>
+
+                    <Image source={require('../assets/liquidLogo.png')} style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
+                </View>
+                <Text style={styles.congrat}>Survey!</Text>
                 <Text style={styles.congratMoney}>
                     Have you been to the Emergency Room for
                     </Text>
@@ -64,20 +67,20 @@ const ModalSurvey2 = ({ modalSurvey2, setModalSurvey2, winnings, user, totalMone
                     FLUID OVERLOAD
                     </Text>
                 <View style={styles.congratTextHold}>
-                    <Text style={styles.congratText}>in the last 12 months?</Text>
+                    <Text style={styles.congratText}>in the last 30 days?</Text>
                 </View>
                 <View style={styles.answerHolder}>
                     <Pressable
-                        style={styles.okButton}
+                        style={styles.noButton}
                         onPress={() => sendSurveyDataF2()}
                     >
-                        <Text style={{ fontSize: 30, color: 'black', fontWeight: 'bold' }}>No</Text>
+                        <Text style={{ fontSize: 36, color: 'black', fontWeight: 'bold' }}>NO</Text>
                     </Pressable>
                     <Pressable
                         style={styles.okButton}
                         onPress={() => sendSurveyDataT2()}
                     >
-                        <Text style={{ fontSize: 30, color: 'black', fontWeight: 'bold' }}>Yes</Text>
+                        <Text style={{ fontSize: 36, color: 'white', fontWeight: 'bold' }}>YES</Text>
                     </Pressable>
                 </View>
             </View>
@@ -90,6 +93,10 @@ const ModalSurvey2 = ({ modalSurvey2, setModalSurvey2, winnings, user, totalMone
 export default ModalSurvey2
 
 const styles = StyleSheet.create({
+    logoHolder: {
+        height: '25%',
+        width: '50%',
+    },
     taskWrapper: {
         marginTop: '5%',
         flexDirection: 'row',
@@ -153,6 +160,30 @@ const styles = StyleSheet.create({
         height: '100%',
         textAlign: 'center',
         alignItems: 'center',
+
+    },
+    okButton: {
+        borderWidth: 2,
+        backgroundColor: '#4facfe',
+        borderColor: 'grey',
+        borderRadius: 9,
+        width: '35%',
+        alignItems: 'center',
+    },
+    noButton: {
+        // borderWidth: 2,
+        // borderColor: 'grey',
+        // borderRadius: 9,
+        width: '35%',
+        alignItems: 'center',
+
+    },
+    answerHolder: {
+        width: '100%',
+        fontSize: 44,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
 
     }
 

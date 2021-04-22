@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Modal, Pressable, useContext } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Modal, Pressable, useContext, Image } from 'react-native'
 import Ion from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firestore from '@react-native-firebase/firestore'
@@ -23,7 +23,7 @@ const ModalSurvey = ({ modalSurvey, setModalSurvey, modalSurvey2, setModalSurvey
             .then(() => {
                 console.log('User survey added!');
                 setModalSurvey(!modalSurvey)
-                setModalSurvey2(false)
+                setModalSurvey2(!modalSurvey2)
             });
     }
 
@@ -38,7 +38,7 @@ const ModalSurvey = ({ modalSurvey, setModalSurvey, modalSurvey2, setModalSurvey
             .then(() => {
                 console.log('User survey added!');
                 setModalSurvey(!modalSurvey)
-                setModalSurvey2(!modalSurvey)
+                setModalSurvey2(!modalSurvey2)
             });
     }
 
@@ -48,10 +48,12 @@ const ModalSurvey = ({ modalSurvey, setModalSurvey, modalSurvey2, setModalSurvey
             animationType="slide"
             transparent={true}
             visible={modalSurvey}
-
         >
             <View style={styles.modalView2}>
-                {/* <Image source={require('../assets/liquidMon.png')} style={{ width: '65%', height: '35%', resizeMode: 'contain' }} /> */}
+                <View style={styles.logoHolder}>
+
+                    <Image source={require('../assets/liquidLogo.png')} style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
+                </View>
                 <Text style={styles.congrat}>Survey!</Text>
                 <Text style={styles.congratMoney}>
                     Have you been to the Emergency Room for
@@ -64,16 +66,16 @@ const ModalSurvey = ({ modalSurvey, setModalSurvey, modalSurvey2, setModalSurvey
                 </View>
                 <View style={styles.answerHolder}>
                     <Pressable
-                        style={styles.okButton}
+                        style={styles.noButton}
                         onPress={() => sendSurveyDataF()}
                     >
-                        <Text style={{ fontSize: 30, color: 'black', fontWeight: 'bold' }}>No</Text>
+                        <Text style={{ fontSize: 36, color: 'black', fontWeight: 'bold' }}>NO</Text>
                     </Pressable>
                     <Pressable
                         style={styles.okButton}
                         onPress={() => sendSurveyDataT()}
                     >
-                        <Text style={{ fontSize: 30, color: 'black', fontWeight: 'bold' }}>Yes</Text>
+                        <Text style={{ fontSize: 36, color: 'white', fontWeight: 'bold' }}>YES</Text>
                     </Pressable>
                 </View>
             </View>
@@ -86,12 +88,17 @@ const ModalSurvey = ({ modalSurvey, setModalSurvey, modalSurvey2, setModalSurvey
 export default ModalSurvey
 
 const styles = StyleSheet.create({
+    logoHolder: {
+        height: '25%',
+        width: '50%',
+    },
     taskWrapper: {
         marginTop: '5%',
         flexDirection: 'row',
 
         justifyContent: 'space-around',
         width: '100%',
+        height: '100%',
         alignItems: 'stretch',
         minHeight: 40,
         zIndex: 199
@@ -148,7 +155,31 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         textAlign: 'center',
+
+
+    },
+    okButton: {
+        borderWidth: 2,
+        backgroundColor: '#4facfe',
+        borderColor: 'grey',
+        borderRadius: 9,
+        width: '35%',
         alignItems: 'center',
+    },
+    noButton: {
+        // borderWidth: 2,
+        // borderColor: 'grey',
+        // borderRadius: 9,
+        width: '35%',
+        alignItems: 'center',
+
+    },
+    answerHolder: {
+        width: '100%',
+        fontSize: 44,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
 
     }
 

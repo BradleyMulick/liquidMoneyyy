@@ -5,30 +5,17 @@ import { FluidContext } from '../navigation/FluidProvider'
 import FormButton from '../components/FormButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { color } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
+import ModalVisible3 from '../components/ModalVisible3';
 
 
 const STORAGE_KEY = '@save_age'
 
-const PROP = [
-    {
-        key: '0/day',
-        text: '0/day',
-    },
-    {
-        key: '1/day',
-        text: '1/day',
-    },
-    {
-        key: '3/day',
-        text: '3/day',
-    },
-    {
-        key: '6/day',
-        text: '6/day',
-    },
-];
 
-const FluidMax = ({ navigation, isOn, setIsOn }) => {
+const FluidMax = ({  isOn, setIsOn, navigation }) => {
+
+    // const navigation = useNavigation();
+
     const [maxFluids, setMaxFluids] = useContext(FluidContext)
     const [reminderTime, setReminderTime] = useState(0)
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
@@ -43,25 +30,18 @@ const FluidMax = ({ navigation, isOn, setIsOn }) => {
     const [text, setText] = useState('')
     const onChange = text => setText(text)
     
-    const reminderSelector = (time) => {
-        setReminderTime(time)
-        console.log(reminderTime)
-    }
-
 
     const saveData = async () => {
-
         try {
-
             if (text > 0 ) {
                 setMaxFluids(text)
             
                 await AsyncStorage.removeItem(STORAGE_KEY);
                 await  AsyncStorage.setItem(STORAGE_KEY, text)
-                navigation.navigate('Home')
-
+                // navigation.navigate('Home')
+                setModalVisible3(!modalVisible3)
+console.log("SET THE MODAL OPENNNNNN")
                 setText(0)
-                setModalVisible3(true)
             } else {
                 alert("FILL IN MAX FLUIDS!")
             }
@@ -86,8 +66,8 @@ const FluidMax = ({ navigation, isOn, setIsOn }) => {
     //     }
     // }
     // useEffect(() => {
-    //     readData()
-    // }, [maxFluids])
+    //     saveData()
+    // }, [text])
 
     const clearStorage = async () => {
         try {
@@ -111,18 +91,11 @@ const FluidMax = ({ navigation, isOn, setIsOn }) => {
 
     const onChangeTemp = temp => setText(temp)
     const onChangeText = fluids => setMaxFluids(fluids)
-    const onSubmitEditing = () => {
+    
 
-        if (!maxFluids)
-            return
-        saveData(maxFluids)
-
-        navigation.navigate('Home')
-    }
-
-    useEffect(() => {
-console.log(isOn + "FLuid max page")
-    }, [isOn])
+//     useEffect(() => {
+// console.log(isOn + "FLuid max page")
+//     }, [isOn])
 
     return (
 
@@ -131,20 +104,21 @@ console.log(isOn + "FLuid max page")
 
 {/* MODAL FOR ALERT >>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
 
-<Modal
+  {modalVisible3 === true ?
+                <ModalVisible3 modalVisible3={modalVisible3} setModalVisible3={setModalVisible3} />
+                : null} 
+
+{/* <Modal
             animationType="slide"
                 transparent={true}
                 visible={modalVisible3}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible3(!modalVisible3);
-                }}
+                
             >
             <View style={styles.modalContainer}>
                 <View style={styles.modalBorder}>
 
 
-            {/* <Image source={require('../assets/liquidMon.png')} style={{ width: '50%', height: '25%' }} /> */}
+            <Image source={require('../assets/liquidMon.png')} style={{ width: '50%', height: '25%' }} />
 <Text style={styles.alertText1}>Congrats!</Text>
 <Text style={styles.alertText}>You updated your max fluids</Text>
 <Pressable
@@ -153,7 +127,7 @@ console.log(isOn + "FLuid max page")
                         ><Text style={styles.alertTextButton}>OK</Text></Pressable>
                 </View>
                 </View>
-            </Modal>
+            </Modal> */}
 
 
 
@@ -203,32 +177,17 @@ console.log(isOn + "FLuid max page")
       />
       <Text style={styles.onOff}>ml/Oz</Text> */}
             </View>
-            {/* <TextInput
-                style={{ height: 40 }}
-                placeholder="Type here to translate!"
-                onChangeText={maxFluids => setMaxFluids(maxFluids)}
-                defaultValue={maxFluids}
-            />
-            <Text style={{ padding: 10, fontSize: 42 }}>
-                {maxFluids}
-            </Text> */}
-
             <View style={styles.warning}>
                 <Text style={styles.bigWarning}>WARNING</Text>
                 <Text style={styles.warningInfo}>
                     This app is meant to be used as a guide and not for medical diagnosis purposes.
-                    
+                
                          </Text>
-
                          <TouchableOpacity onPress={saveData} style={styles.button}>
                     <Text style={styles.buttonText}>Save and Agree</Text>
                 </TouchableOpacity>
             </View>
-
         </View>
-
-
-
 
     )
 }
@@ -238,13 +197,7 @@ export default FluidMax
 
 const styles = StyleSheet.create({
     container: {
-
         flex: 1,
-
-
-
-
-
     },
     text: {
         fontSize: 20,
@@ -254,8 +207,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
-
     },
     title: {
         fontSize: 44,
@@ -334,15 +285,11 @@ const styles = StyleSheet.create({
     warningInfo: {
         alignItems: 'center',
 
-
-
     },
     radio: {
         flex: 2,
         padding: 10,
-
         justifyContent: 'flex-end',
-
         marginTop: 10
 
 

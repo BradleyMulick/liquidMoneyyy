@@ -38,6 +38,9 @@ import ModalRando from '../components/ModalRando';
 import ModalSurvey from '../components/ModalSurvey';
 import ModalSurvey2 from '../components/ModalSurvey2';
 import { set } from 'react-native-reanimated';
+import ModalWinSur from '../components/ModalWinSur';
+
+const STORAGE_KEY = '@save_age'
 
 let config = {
     apiKey: "AIzaSyC5_d0AnjiLkK41px5wTWjPTP-mjrmsWOw",
@@ -46,10 +49,6 @@ let config = {
     storageBucket: "liquidmon-30fc2.appspot.com",
     messagingSenderId: "605205477691"
 };
-
-// firebase.initializeApp(config);
-
-// !firebase.apps.length ? firebase.initializeApp(config) : firebase.app()
 
 
 const HomeScreen = ({ navigation }) => {
@@ -105,6 +104,7 @@ const HomeScreen = ({ navigation }) => {
     const [picto, setPicto] = useState('')
 
     const [modalWin, setModalWin] = useState(false)
+    const [modalWinSur, setModalWinSur] = useState(false)
     const [modalNoWin, setModalNoWin] = useState(false)
 
     const [modalFluidMax, setModalFluidMax] = useState(false)
@@ -312,7 +312,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalSnack(!modalSnack)
@@ -326,7 +326,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalIceCream(!modalIceCream)
@@ -340,7 +340,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalSoda(!modalSoda)
@@ -354,7 +354,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalBowl(!modalBowl)
@@ -368,7 +368,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalCup(!modalCup)
@@ -382,7 +382,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalFruit(!modalFruit)
@@ -396,7 +396,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalWine(!modalWine)
@@ -411,7 +411,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalBeer(!modalBeer)
@@ -425,7 +425,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalMedication(!modalMedication)
@@ -439,7 +439,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalMilk(!modalMilk)
@@ -453,7 +453,7 @@ const HomeScreen = ({ navigation }) => {
         total()
         let copy = [...allLogs];
         const date = new Date().toString()
-        copy = [...copy, { key: uuid(), id: uuid(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
+        copy = [...copy, { key: uuid.v4(), id: uuid.v4(), task: fluidLevel, isEdit: null, editText: '', date: todaysDate, liquidType: liquidType, fluidName: fluidName }];
         setAllLogs(copy)
 
         setModalRando(!modalRando)
@@ -740,7 +740,22 @@ const HomeScreen = ({ navigation }) => {
     }
 
 
+    const alertSetMax = async () => {
+        try {
+            const fluids = await AsyncStorage.getItem(STORAGE_KEY)
+            if (fluids === null) {
+                navigation.navigate('FluidMax')
+
+            }
+        } catch (e) {
+            alert('Failed to save ')
+        }
+    }
+
+
+
     useEffect(() => {
+        // alertSetMax()
         // addLog()
         loadTodo()
         // dailyDough()
@@ -768,18 +783,20 @@ const HomeScreen = ({ navigation }) => {
     const alertSet = () => {
         alert('Set Max liquid!!!')
     }
-    // useEffect(() => {
-    //     AsyncStorage.getItem('firstSet').then(value => {
-    //         if (value == null) {
-    //             AsyncStorage.setItem('firstSet', 'true')
-    //             setFirstSet(true)
-    //             alertSet()
-    //             navigation.navigate('FluidMax')
-    //         } else {
-    //             setFirstSet(false)
-    //         }
-    //     })
-    // }, [])
+    useEffect(() => {
+        AsyncStorage.getItem('firstSet').then(value => {
+            if (value == null) {
+                AsyncStorage.setItem('firstSet', 'true')
+                setFirstSet(true)
+                alertSet()
+                navigation.navigate('FluidMax')
+                console.log("set first set to true")
+            } else {
+                setFirstSet(false)
+                console.log("set first set to false")
+            }
+        })
+    }, [])
 
     return (
 
@@ -787,6 +804,9 @@ const HomeScreen = ({ navigation }) => {
 
             {modalWin === true ?
                 <ModalWin modalWin={modalWin} setModalWin={setModalWin} setModalSurvey2={setModalSurvey2} winnings={winnings} />
+                : null}
+            {modalWinSur === true ?
+                <ModalWinSur modalWinSur={modalWinSur} setModalWinSur={setModalWinSur} setModalSurvey2={setModalSurvey2} winnings={winnings} />
                 : null}
             {modalFluidMax === true ?
                 <ModalFluidMax modalFluidMax={modalFluidMax} setModalFluidMax={setModalFluidMax} />
@@ -799,7 +819,7 @@ const HomeScreen = ({ navigation }) => {
                 <ModalSurvey modalSurvey={modalSurvey} setModalSurvey={setModalSurvey} modalSurvey2={modalSurvey2} setModalSurvey2={setModalSurvey2} user={user} />
                 : null}
             {modalSurvey2 === true ?
-                <ModalSurvey2 modalSurvey2={modalSurvey2} setModalSurvey2={setModalSurvey2} user={user} totalMoney={totalMoney} setTotalMoney={setTotalMoney} setWinnings={setWinnings} setModalWin={setModalWin} modalWin={setModalWin} />
+                <ModalSurvey2 modalSurvey2={modalSurvey2} setModalSurvey2={setModalSurvey2} user={user} totalMoney={totalMoney} setTotalMoney={setTotalMoney} setWinnings={setWinnings} setModalWinSur={setModalWinSur} modalWinSur={modalWinSur} />
                 : null}
 
             {modal1 === true ?
